@@ -5,7 +5,7 @@ postgres:
   ports:
     - "5432:5432" # Bind host port 5432 to PostgreSQL port 5432
   volumes:
-    - example-files/postgres-initdb:/docker-entrypoint-initdb.d
+    - ./example-files/postgres-initdb:/docker-entrypoint-initdb.d
   environment:
     LC_ALL: C.UTF-8
     POSTGRES_PASSWORD: example
@@ -15,10 +15,10 @@ hbase:
   hostname: master
   domainname: hbase.pio.example.com
   volumes:
-    - example-files/hbase-server-config.xml:/hbase/conf/hbase-site.xml  # The config file
+    - ./example-files/hbase-server-config.xml:/hbase/conf/hbase-site.xml  # The config file
 
 pio:
-  image: vovimayhem/prediction-io:0.9.3
+  image: vermotr/prediction-io
   command: pio eventserver
   ports:
     - "7070:7070"
@@ -26,10 +26,10 @@ pio:
     - postgres:postgres.pio.example.com
     - hbase:master.hbase.pio.example.com
   volumes:
-    - example-files/prediction-io-store:/prediction-io/.pio_store
-    - example-files/hbase-client-config.xml:/prediction-io/vendors/hbase/conf/hbase-site.xml
+    - ./example-files/prediction-io-store:/prediction-io/.pio_store
+    - ./example-files/hbase-client-config.xml:/prediction-io/vendors/hbase/conf/hbase-site.xml
   environment:
-    
+
     # Configure Postgres connection:
     PIO_STORAGE_SOURCES_PGSQL_TYPE: jdbc
     PIO_STORAGE_SOURCES_PGSQL_URL: jdbc:postgresql://postgres.pio.example.com/prediction_io_example

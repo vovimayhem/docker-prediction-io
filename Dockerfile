@@ -1,5 +1,5 @@
 FROM java:8-jdk
-MAINTAINER Roberto Quintanilla <roberto.quintanilla@gmail.com>
+MAINTAINER Romain Vermot <romain@vermot.eu>
 
 RUN cp /etc/default/useradd /etc/default/useradd.bak \
   && echo "HOME=" >> /etc/default/useradd \
@@ -15,7 +15,7 @@ WORKDIR /prediction-io
 #   - Line X: Prepend the '/prediction-io/bin' directory to $PATH
 #   - Line X: Set the PredictionIO version
 
-ENV PIO_VERSION=0.9.3 \
+ENV PIO_VERSION=0.9.6 \
     PIO_FS_BASEDIR=/prediction-io/.pio_store \
     PIO_FS_ENGINESDIR=/prediction-io/.pio_store/engines \
     PIO_FS_TMPDIR=/prediction-io/.pio_store/tmp \
@@ -50,7 +50,7 @@ ENV HADOOP_VERSION=2.6 \
     PATH=/prediction-io/vendors/spark/bin:$PATH
 
 RUN mkdir -p /prediction-io/vendors/spark \
-  && curl -fSL -o /tmp/spark.tar.gz "http://apache.webxcreen.org/spark/spark-$SPARK_VERSION/spark-$SPARK_VERSION-bin-hadoop$HADOOP_VERSION.tgz" \
+  && curl -fSL -o /tmp/spark.tar.gz "http://www.apache.org/dist/spark/spark-$SPARK_VERSION/spark-$SPARK_VERSION-bin-hadoop$HADOOP_VERSION.tgz" \
   && echo "$SPARK_DOWNLOAD_SHA512 /tmp/spark.tar.gz" | sha512sum -c - \
 	&& tar zxvfC /tmp/spark.tar.gz /prediction-io/vendors/spark --strip-components=1 \
 	&& rm -rf /tmp/spark.tar.gz
