@@ -1,5 +1,5 @@
 FROM java:8-jdk
-MAINTAINER Romain Vermot <romain@vermot.eu>
+MAINTAINER Roberto Quintanilla <roberto.quintanilla@gmail.com>
 
 RUN cp /etc/default/useradd /etc/default/useradd.bak \
   && echo "HOME=" >> /etc/default/useradd \

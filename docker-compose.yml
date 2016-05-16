@@ -18,7 +18,7 @@ hbase:
     - ./example-files/hbase-server-config.xml:/hbase/conf/hbase-site.xml  # The config file
 
 pio:
-  image: vermotr/prediction-io
+  image: vovimayhem/prediction-io
   command: pio eventserver
   ports:
     - "7070:7070"
